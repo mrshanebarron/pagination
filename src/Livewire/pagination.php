@@ -10,23 +10,17 @@ class Pagination extends Component
     public int $totalPages = 1;
     public int $perPage = 10;
     public int $total = 0;
+    public int $onEachSide = 2;
     public bool $showInfo = true;
-    public string $size = 'md';
 
-    public function mount(
-        int $currentPage = 1,
-        int $totalPages = 1,
-        int $perPage = 10,
-        int $total = 0,
-        bool $showInfo = true,
-        string $size = 'md'
-    ): void {
+    public function mount(int $currentPage = 1, int $totalPages = 1, int $perPage = 10, int $total = 0, int $onEachSide = 2, bool $showInfo = true): void
+    {
         $this->currentPage = $currentPage;
         $this->totalPages = $totalPages;
         $this->perPage = $perPage;
         $this->total = $total;
+        $this->onEachSide = $onEachSide;
         $this->showInfo = $showInfo;
-        $this->size = $size;
     }
 
     public function goToPage(int $page): void
@@ -37,14 +31,16 @@ class Pagination extends Component
         }
     }
 
-    public function getVisiblePages(): array
+    public function getPages(): array
     {
         $pages = [];
-        $start = max(1, $this->currentPage - 2);
-        $end = min($this->totalPages, $this->currentPage + 2);
-        for ($i = $start; $i <= $end; $i++) {
-            $pages[] = $i;
-        }
+        $start = max(1, $this->currentPage - $this->onEachSide);
+        $end = min($this->totalPages, $this->currentPage + $this->onEachSide);
+
+        if ($start > 1) { $pages[] = 1; if ($start > 2) $pages[] = '...'; }
+        for ($i = $start; $i <= $end; $i++) $pages[] = $i;
+        if ($end < $this->totalPages) { if ($end < $this->totalPages - 1) $pages[] = '...'; $pages[] = $this->totalPages; }
+
         return $pages;
     }
 
