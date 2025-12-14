@@ -46,6 +46,6 @@ class Pagination extends Component
 
     public function render()
     {
-        return view('ld-pagination::livewire.pagination');
+        return view('sb-pagination::livewire.pagination');
     }
 }

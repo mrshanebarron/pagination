@@ -9,8 +9,8 @@ class PaginationServiceProvider extends ServiceProvider
     public function boot(): void
     {
         if (class_exists(\Livewire\Livewire::class)) {
-            \Livewire\Livewire::component('ld-pagination', Livewire\Pagination::class);
+            \Livewire\Livewire::component('sb-pagination', Livewire\Pagination::class);
         }
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'ld-pagination');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'sb-pagination');
     }
 }

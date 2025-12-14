@@ -30,7 +30,7 @@
 import { computed } from 'vue';
 
 export default {
-  name: 'LdPagination',
+  name: 'SbPagination',
   props: {
     modelValue: { type: Number, default: 1 },
     totalPages: { type: Number, required: true },
