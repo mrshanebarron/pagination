@@ -13,14 +13,16 @@ class Pagination extends Component
     public int $onEachSide = 2;
     public bool $showInfo = true;
 
-    public function mount(int $currentPage = 1, int $totalPages = 1, int $perPage = 10, int $total = 0, int $onEachSide = 2, bool $showInfo = true): void
+    public function mount(int $currentPage = 1, ?int $totalPages = null, int $perPage = 10, int $total = 0, int $onEachSide = 2, bool $showInfo = true): void
     {
         $this->currentPage = $currentPage;
-        $this->totalPages = $totalPages;
         $this->perPage = $perPage;
         $this->total = $total;
         $this->onEachSide = $onEachSide;
         $this->showInfo = $showInfo;
+
+        // Auto-calculate totalPages from total and perPage if not explicitly provided
+        $this->totalPages = $totalPages ?? (int) ceil($total / max(1, $perPage));
     }
 
     public function goToPage(int $page): void
